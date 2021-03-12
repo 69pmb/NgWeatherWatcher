@@ -15,7 +15,7 @@ export class UtilsService {
     protected toast: ToastService
   ) { }
 
-  protected static encodeQueryUrl(query: string): string {
+  public static encodeQueryUrl(query: string): string {
     return encodeURIComponent(query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
   }
 
@@ -47,8 +47,8 @@ export class UtilsService {
     this.toast.error(UtilsService.getErrorMessage(error));
   }
 
-  protected getPromise<T>(url: string, defaultValue: T): Promise<T> {
-    return this.getObservable<T>(url, defaultValue).toPromise();
+  protected getPromise<T>(url: string, defaultValue: T, params?: HttpParams): Promise<T> {
+    return this.getObservable<T>(url, defaultValue, params).toPromise();
   }
 
   protected getObservable<T>(url: string, defaultValue: T, params?: HttpParams): Observable<T> {
